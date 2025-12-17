@@ -1,0 +1,21 @@
+name: supabase-keepalive
+
+on:
+  schedule:
+    - cron: "0 0 * * 1,4"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: |
+          curl -sS \
+            -H "apikey: $SUPABASE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_KEY" \
+            "$SUPABASE_URL/rest/v1/live?select=id&limit=1" \
+            > /dev/null
