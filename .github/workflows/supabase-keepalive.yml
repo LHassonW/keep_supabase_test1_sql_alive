@@ -19,6 +19,7 @@ jobs:
             -H "Authorization: Bearer $SUPABASE_KEY" \
             "$SUPABASE_URL/rest/v1/live?select=id&limit=1" \
             > /dev/null
+            
       - name: Ping Supabase project 2 (live2)
         env:
           URL: ${{ secrets.SUPABASE_URL_2 }}
@@ -28,4 +29,15 @@ jobs:
             -H "apikey: $KEY" \
             -H "Authorization: Bearer $KEY" \
             "$URL/rest/v1/live2?select=id&limit=1" \
+            > /dev/null
+
+      - name: Ping Supabase project 3 (live3)
+        env:
+          URL: ${{ secrets.SUPABASE_URL_3 }}
+          KEY: ${{ secrets.SUPABASE_KEY_3 }}
+        run: |
+          curl -sS \
+            -H "apikey: $KEY" \
+            -H "Authorization: Bearer $KEY" \
+            "$URL/rest/v1/live3?select=id&limit=1" \
             > /dev/null
